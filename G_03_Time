@@ -1,0 +1,19 @@
+var myComp = app.project.activeItem;
+
+// 功能03：根据用户提示数值修改当前选定的预合成设置，总时长帧数
+if (myComp !== null && myComp instanceof CompItem) {
+  // 提示用户输入新的总时长帧数
+  var newTotalFrames = prompt("请输入新的总时长帧数：", Math.round(myComp.duration * myComp.frameRate));
+
+  // 将用户输入的帧数转换为整数
+  newTotalFrames = parseInt(newTotalFrames, 10);
+
+  // 计算合成的新总帧数
+  var newDurationSeconds = newTotalFrames / myComp.frameRate;
+
+  // 设置合成的新总帧数
+  myComp.duration = newDurationSeconds;
+  alert("合成的总时长帧数已设置为：" + newTotalFrames);
+} else {
+  alert("请先选择要修改总时长帧数的预合成！");
+}

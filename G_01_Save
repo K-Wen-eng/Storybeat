@@ -1,0 +1,29 @@
+// 提示用户输入新名称和路径
+var newName = prompt("请输入新名称：", "");
+var newPath = Folder.selectDialog("请选择另存为路径：");
+
+// 检查用户是否取消了输入
+if (newName === null || newPath === null) {
+  alert("用户取消了操作。");
+} else {
+  // 获取当前项目（合成）引用
+  var curComp = app.project.activeItem;
+
+  if (curComp !== null && curComp instanceof CompItem) {
+    // 修改项目（合成）名称
+    curComp.name = newName;
+
+    // 保存项目（合成）到新路径
+    var saveFolder = new Folder(newPath);
+    if (!saveFolder.exists) {
+      saveFolder.create();
+    }
+
+    var saveFile = new File(saveFolder.fullName + "/" + newName + ".aep");
+    app.project.save(saveFile);
+
+    alert("项目已保存到新路径：" + saveFile.fsName);
+  } else {
+    alert("请先打开一个合成！");
+  }
+}

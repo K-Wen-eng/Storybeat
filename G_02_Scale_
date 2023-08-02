@@ -1,0 +1,19 @@
+// 获取当前预合成引用
+var curComp = app.project.activeItem;
+
+// 获取预合成中的所有图层
+var layers = curComp.layers;
+
+// 遍历并缩放每个图层
+for (var i = 1; i <= layers.length; i++) {
+  var layer = layers[i];
+  // 检查是否为图片类型的图层（如位图图层）
+  if (layer instanceof AVLayer && layer.source instanceof FootageItem && layer.source.mainSource instanceof FileSource) {
+    var scalePercentage = 67;
+    var currentScale = layer.scale.value;
+    var newScale = [currentScale[0] * scalePercentage / 100, currentScale[1] * scalePercentage / 100];
+    layer.scale.setValue(newScale);
+  }
+}
+
+alert("所有图片图层大小已设置为67%。");
